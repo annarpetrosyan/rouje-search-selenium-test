@@ -1,9 +1,11 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.reporters.jq.Main;
+
+import static org.testng.Assert.assertTrue;
 
 public class RoujePageTest {
     private WebDriver driver;
@@ -17,6 +19,7 @@ public class RoujePageTest {
         driver.manage().deleteAllCookies();
         mainPage = new MainPage(driver);
 
+
     }
 
     @AfterClass
@@ -28,7 +31,11 @@ public class RoujePageTest {
     @Test
     public void test(){
         mainPage.goBasePage();
-        mainPage.clickOn();
+        mainPage.fillSearch("Moschino");
+        mainPage.clickOnSearchButton();
+        assertTrue(mainPage.getTextAfterSearch().contains("Search Results For"), "Assertion failed!");
+        mainPage.selectCombo("Price");
+
     }
 
 
